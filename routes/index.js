@@ -409,19 +409,19 @@ router.post('/Actualizar_Usuario_Login', function (req, res){
 })
 // UPTDATE TABLA PROPIETARIOS 
 router.post('/Actualizar_Propietario', function (req, res){
-    const Primer_Nombre = req.body.Primer_Nombre
-    const Segundo_Nombre = req.body.Segundo_Nombre
-    const Primer_Apellido = req.body.Primer_Apellido
-    const Segundo_Apellido = req.body.Segundo_Apellido
-    const correo = req.body.correo
-    const Telefono = req.body.Telefono
-    const Direccion_Contacto = req.body.Direccion_Contacto
-    const id_inmueble = req.body.id_inmueble
+    var Primer_Nombre = req.body.Primer_Nombre;
+    var Segundo_Nombre = req.body.Segundo_Nombre;
+    var Primer_Apellido = req.body.Primer_Apellido;
+    var Segundo_Apellido = req.body.Segundo_Apellido;
+    var correo = req.body.correo;
+    var Telefono = req.body.Telefono;
+    var Direccion_Contacto = req.body.Direccion_Contacto;
+    const Numero_Identificacion = req.body.Numero_Identificacion;
 
     req.getConnection((err, conn) =>{
         if (err) return res.send(err)
         const x = ""
-        const consulta = x.concat('update propietarios set Primer_Nombre="', Primer_Nombre,'", Segundo_Nombre="', Segundo_Nombre,'", Primer_Apellido="', Primer_Apellido,'", Segundo_Apellido="', Segundo_Apellido,'", correo="', correo,'", Telefono="', Telefono,'", Direccion_Contacto="', Direccion_Contacto,'", id_inmueble="', id_inmueble,'"')
+        const consulta = x.concat('update propietarios set Primer_Nombre="', Primer_Nombre,'", Segundo_Nombre="', Segundo_Nombre,'", Primer_Apellido="', Primer_Apellido,'", Segundo_Apellido="', Segundo_Apellido,'", correo="', correo,'", Telefono="', Telefono,'", Direccion_Contacto="', Direccion_Contacto,'" where Numero_Identificacion="',Numero_Identificacion,'"')
         console.log(consulta)
         conn.query(consulta, [req.body],(err, result, fields) => {
             if (err)
