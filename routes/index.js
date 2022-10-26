@@ -210,7 +210,37 @@ router.post('/Agregar_Usuario_Login', urlcodeParser, function (req, res){
     })
 
 // INSERT TABLA PROPIETARIOS
-router.post('/Agregar_Propietarios', function (req, res){
+router.post("/insertar_User",urlcodeParser,function(req,res){
+    const Numero_Identificacion=req.body.Numero_Identificacion
+    const Primer_Nombre=req.body.Primer_Nombre
+    const Segundo_Nombre=req.body.Segundo_Nombre
+    const Primer_Apellido=req.body.Primer_Apellido
+    const Segundo_Apellido=req.body.Segundo_Apellido
+    const correo=req.body.correo
+    const Telefono=req.body.Telefono
+    const Direccion_Contacto=req.body.Direccion_Contacto
+
+    req.getConnection((err,conn)=>{
+        if (err) return res.send(err)
+        const x=""
+        const consulta=x.concat('insert into propietarios(Numero_Identificacion,Primer_Nombre,Segundo_Nombre,Primer_Apellido,Segundo_Apellido,correo,Telefono,Direccion_Contacto) value("',Numero_Identificacion,'","',Primer_Nombre,'","',Segundo_Nombre,'","',Primer_Apellido,'","',Segundo_Apellido,'","',correo,'","',Telefono,'","',Direccion_Contacto,'")') 
+        conn.query(consulta,[req.body],(err,result,rows)=>{
+            if(err)
+                {res.send(err)}
+            else
+            {
+                res.status(200).send({save:1})
+                if(res.status(200))
+                {
+                    console.log('Usuario Almacenado')
+                    console.log(result)
+                }
+            }
+        })
+    })
+})
+
+/* router.post('/Agregar_Propietarios', function (req, res){
     const Numero_Identificacion = req.body.Numero_Identificacion
     const Primer_Nombre = req.body.Primer_Nombre
     const Segundo_Nombre = req.body.Segundo_Nombre
@@ -238,7 +268,7 @@ router.post('/Agregar_Propietarios', function (req, res){
                 }
             })
         })
-    })
+    }) */
 
 // INSERT TABLA INMUEBLES
 router.post('/Agregar_Inmueble', urlcodeParser, function (req, res){
@@ -563,8 +593,29 @@ router.post('/Borrar_Usuarios_Login', urlcodeParser, function (req, res) {
         })
     })
 })
+
+//Eliminar registro      ----->    funciona ok
+router.post("/delete_propietarios", urlcodeParser,function (req, res) {
+    const Numero_Id = req.body.Numero_Identificacion;
+
+    req.getConnection((err, conn) => {
+         if (err) return res.send(err)    
+            const x="";
+            const consulta=x.concat('delete from propietarios where Numero_Identificacion="',Numero_Id,'"')
+            conn.query(consulta, [req.body],(err, result,fields) => {
+                 if (err) return res.send(err)  
+                    res.status(200).send({ eliminado:1 })
+                      if(res.status(200))
+                            {
+                                 console.log('registro eliminado')                                                
+                           }  
+             })
+      }) 
+ 
+ })
+
 // ELIMINAR DE LA TABLA PROPIETARIOS
-router.post('/Borrar_Propietario', urlcodeParser, function (req, res) {
+/* router.post('/Borrar_Propietario', urlcodeParser, function (req, res) {
     const Numero_Identificacion = req.body.Numero_Identificacion
 
     req.getConnection((err, conn) => {
@@ -580,7 +631,8 @@ router.post('/Borrar_Propietario', urlcodeParser, function (req, res) {
             }
         })
     })
-})
+})*/
+
 // ELIMINAR DE LA TABLA INMUEBLES
 router.post('/Borrar_Inmueble', urlcodeParser, function (req, res) {
     const id_inmueble = req.body.id_inmueble
