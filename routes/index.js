@@ -32,23 +32,41 @@ router.post('/Consultar_Usuarios_Sistema', urlcodeParser,function (req, res){
         })
     })
 })
+
 // SELECT DE TODA LA TABLA PROPIETARIOS
-router.post('/Consultar_Propietarios', urlcodeParser,function (req, res){
+//ruta para mostrar  1 usuario  - este tipo de codigos de usa para mostrar facturas e información importantes
+router.post("/showuser",urlcodeParser,function(req,res){
+    //const UserName=req.body.UserName
+    //const Password=req.body.Password   // aqui podemos mostrar por user y clave pero se puede sólo por ID
+     const Id_reg=req.body.Numero_Identificacion
+
+
     req.getConnection((err,conn)=>{
         if (err) return res.send(err)
-
-        const consulta = "select * from propietarios"
-        conn.query(consulta,[req.body], (err,result, rows)=>{
-            if (err) 
+        const x=""
+        //const consulta=x.concat('select * from usuarios where UserName="',UserName,'" and Password="',Password,'"')
+        const consulta=x.concat('select * from propietarios where Numero_Identificacion=',Id_reg)
+        console.log(consulta)
+        conn.query(consulta,[req.body],(err,result,rows)=>{
+        if(err)
                 {res.send(err)}
             else
             {
                 res.status(200).send({result})
-                console.log(result)
-            }
+                console.log(result)             
+
+            }   
+
         })
+
     })
 })
+
+
+
+
+
+
 // SELECT DE TODA LA TABLA INMUEBLES
 router.post('/Consultar_Inmuebles', urlcodeParser,function (req, res){
     req.getConnection((err,conn)=>{

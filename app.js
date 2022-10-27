@@ -32,11 +32,16 @@ const corsOpts = {
 // ? SE DEBEN VERIRIFICAR LOS DATOS DE CONEXION AL SERVIDOR, ASI SI ES LOCAL, SI ESTA EN SERVIDOR LOS DATOS DE ESTE.
 const conexion = mysql.createConnection(
     {
-        host: 'localhost',
-        port: 3307,
-        user: 'root',
-        password: 'Prueba1',
-        database: 'db_altos_bucaramanga',
+       
+       host:'localhost',
+       port:3309,
+       user:'root',  
+       /*este son los valores de usuario y clave de la base de mysql */
+       password:'usbw',
+       database:'altos_bucaramanga'
+
+
+
     });
 
 conexion.connect(function (err)
@@ -47,7 +52,7 @@ conexion.connect(function (err)
     }
     else
     {
-        console.log('Conexion OK');
+        console.log('Conexion Exitosa');
     }
 });
 
@@ -55,10 +60,10 @@ conexion.connect(function (err)
 const conexion2 = 
     {
         host: 'localhost',
-        port: 3307,
+        port: 3309,
         user: 'root',
-        password: 'Prueba1',
-        database: 'db_altos_bucaramanga',
+        password: 'usbw',
+        database: 'altos_bucaramanga'
     };
 app.use(myconn(mysql, conexion2, 'single'))
 app.use(express.json())
@@ -67,3 +72,11 @@ app.listen(3000, function ()
     {
         console.log('API en el puerto 3000')
     })
+
+//este código se lo agregué nuevo al código jara
+
+app.use((req,res,next)=> {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+})
+
+//aqui finaliza el código nuevo. jara
