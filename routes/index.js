@@ -455,37 +455,47 @@ router.post('/Actualizar_Usuario_Login', function (req, res){
         })
     })
 })
-// UPTDATE TABLA PROPIETARIOS 
-router.post('/Actualizar_Propietario', function (req, res){
-    var Primer_Nombre = req.body.Primer_Nombre;
-    var Segundo_Nombre = req.body.Segundo_Nombre;
-    var Primer_Apellido = req.body.Primer_Apellido;
-    var Segundo_Apellido = req.body.Segundo_Apellido;
-    var correo = req.body.correo;
-    var Telefono = req.body.Telefono;
-    var Direccion_Contacto = req.body.Direccion_Contacto;
-    const Numero_Identificacion = req.body.Numero_Identificacion;
+//Actualizar registros 
+router.post("/update",urlcodeParser, function (req, res) {
+  var Primer_Nombre_ = req.body.Primer_Nombre;
+  var Segundo_Nombre_ = req.body.Segundo_Nombre;
+  var Primer_Apellido_ = req.body.Primer_Apellido;
+   var Segundo_Apellido_ = req.body.Segundo_Apellido;
+  var correo_ = req.body.correo;
+  var Telefono_ = req.body.Telefono;
+  var Direccion_Contacto_ = req.body.Direccion_Contacto;
+   const Id_reg = req.body.Numero_Identificacion;
 
-    req.getConnection((err, conn) =>{
-        if (err) return res.send(err)
-        const x = ""
-        const consulta = x.concat('update propietarios set Primer_Nombre="', Primer_Nombre,'", Segundo_Nombre="', Segundo_Nombre,'", Primer_Apellido="', Primer_Apellido,'", Segundo_Apellido="', Segundo_Apellido,'", correo="', correo,'", Telefono="', Telefono,'", Direccion_Contacto="', Direccion_Contacto,'" where Numero_Identificacion="',Numero_Identificacion,'"')
-        console.log(consulta)
-        conn.query(consulta, [req.body],(err, result, fields) => {
-            if (err)
-                {res.send(err)}
-            else
-            {
-                res.status(200).send({save: 1 })
-                if (res.status(200))
-                {
-                    console.log('Propietario Actualizado')
-                    console.log(result)
-                }
-            }
-        })
-    })
-})
+    //console.log(Correo_)
+    //console.log(Password_)
+    //console.log(Id_reg)
+
+
+   req.getConnection((err, conn) => {
+        if (err) return res.send(err)    
+
+           const x=""
+           const consulta=x.concat('update propietarios set Primer_Nombre="',Primer_Nombre_,'", Segundo_Nombre="',Segundo_Nombre_,'", Primer_Apellido="',Primer_Apellido_,'", Segundo_Apellido="',Segundo_Apellido_,'", correo="',correo_,'", Telefono="',Telefono_,'", Direccion_Contacto="',Direccion_Contacto_,'" where Numero_Identificacion="',Id_reg,'"')
+      console.log(consulta) 
+        conn.query(consulta, [req.body],(err, result,fields) => {
+                 if (err)
+                { res.send(err)}
+                else{   
+                        res.status(200).send({ save:1 })               
+                           if(res.status(200))
+                           {
+                                console.log('Registro Actualizado by Jaras Adventures')
+                                console.log(result)
+
+                  
+                          }  
+                     }  
+            })
+     }) 
+
+
+});
+
 // UPTDATE TABLA INMUEBLES 
 router.post('/Actualizar_Inmueble', function (req, res){
     const direccion = req.body.direccion
